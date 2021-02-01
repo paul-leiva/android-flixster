@@ -39,7 +39,7 @@ public class DetailActivity extends YouTubeBaseActivity {
         tvTitle = findViewById(R.id.tvTitle);
         tvOverview = findViewById(R.id.tvOverview);
         ratingBar = findViewById(R.id.ratingBar);
-        youTubePlayerView = findViewById(R.id.player);
+        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.player);
 
         Movie movie = Parcels.unwrap(getIntent().getParcelableExtra("movie"));
         tvTitle.setText(movie.getTitle());
@@ -70,17 +70,18 @@ public class DetailActivity extends YouTubeBaseActivity {
         });
     }
 
-    private void intializeYouTube(final String youtubeKey) {
+    private void intializeYouTube(String youtubeKey) {
         youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d("DetailActivity", "onInitializeSuccess");
                 youTubePlayer.cueVideo(youtubeKey);
+                //youTubePlayer.play();
             }
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                Log.d("DetailActivity", "onInitializeFailuer");
+                Log.d("DetailActivity", "onInitializeFailure");
             }
         });
     }
